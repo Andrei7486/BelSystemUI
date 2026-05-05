@@ -1,9 +1,12 @@
-import { createBrowserRouter } from "react-router-dom";
-import { Dashboard } from "../../pages/Dashboard/Dashboard";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Dashboard } from '@/pages/Dashboard/Dashboard'
 
-export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Dashboard />,
-    },
-]);
+export const AppRouter = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Dashboard />} />
+            </Routes>
+        </BrowserRouter>
+    )
+}
