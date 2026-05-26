@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
 import { Unit, Test } from '../types/models';
 import { formatDisplayDateTime, formatRelativeTime } from '../utils/dates';
 import { Header } from './Header';
 import { StatusBadge } from './StatusBadge';
-import { LoadingSpinner } from './LoadingSpinner';
 import { CheckCircle, XCircle, Clock } from 'lucide-react';
 
 interface UnitDetailProps {
@@ -53,21 +51,6 @@ const getResultColor = (result: Test['result']) => {
 };
 
 export function UnitDetail({ unit, onBack }: UnitDetailProps) {
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        setLoading(true);
-
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 300);
-
-        return () => clearTimeout(timer);
-    }, [unit.id]);
-
-    if (loading) {
-        return <LoadingSpinner />;
-    }
 
     const passedTests = unit.tests.filter(
         t => t.result === 'pass',
