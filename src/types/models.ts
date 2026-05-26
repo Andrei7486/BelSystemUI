@@ -1,6 +1,6 @@
 export type OrderStatus = 'all' | 'pending' | 'in_progress' | 'testing' | 'ready' | 'shipped';
 
-export type UnitStatus = 'pending' | 'in_progress' | 'testing' | 'ready' | 'shipped';
+export type UnitStatus = 'initial' | 'testing' | 'passed' | 'failed' | 'rework';
 
 export type SortBy = 'number' | 'client' | 'progress' | 'dueDate';
 

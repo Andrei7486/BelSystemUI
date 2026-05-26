@@ -31,25 +31,28 @@ function getStatusFromProgress(progress: number): Order['status'] {
 }
 
 function getUnitStatus(index: number, orderStatus: Order['status']): UnitStatus {
-    if (orderStatus === 'shipped') return 'shipped';
-    if (orderStatus === 'ready') return index % 5 === 0 ? 'testing' : 'ready';
-    if (orderStatus === 'testing') return index % 3 === 0 ? 'in_progress' : 'testing';
-    if (orderStatus === 'in_progress') return index % 2 === 0 ? 'pending' : 'in_progress';
-    return 'pending';
+    if (orderStatus === 'shipped') return index % 11 === 0 ? 'rework' : 'passed';
+    if (orderStatus === 'ready') return index % 5 === 0 ? 'rework' : 'passed';
+    if (orderStatus === 'testing') return index % 7 === 0 ? 'failed' : 'testing';
+    if (orderStatus === 'in_progress') return index % 3 === 0 ? 'testing' : 'initial';
+    return 'initial';
 }
 
 function getTestResult(unitStatus: UnitStatus, testIndex: number, unitIndex: number): TestResult {
-    if (unitStatus === 'ready' || unitStatus === 'shipped') {
-        return unitIndex % 17 === 0 && testIndex === 0 ? 'fail' : 'pass';
+    if (unitStatus === 'passed') {
+        return 'pass';
+    }
+
+    if (unitStatus === 'failed') {
+        return testIndex === 0 ? 'fail' : unitIndex % 3 === 0 ? 'pending' : 'pass';
+    }
+
+    if (unitStatus === 'rework') {
+        return testIndex === 0 || unitIndex % 5 === 0 && testIndex === 2 ? 'fail' : 'pass';
     }
 
     if (unitStatus === 'testing') {
         if (testIndex < 3) return unitIndex % 11 === 0 && testIndex === 1 ? 'fail' : 'pass';
-        return 'pending';
-    }
-
-    if (unitStatus === 'in_progress') {
-        if (testIndex < 2) return 'pass';
         return 'pending';
     }
 
