@@ -34,11 +34,12 @@ export default function App() {
     };
 
     if (view === 'order' && selectedOrder) {
-        return <OrderDetail order={selectedOrder} onBack={handleBackToDashboard} onSelectUnit={handleSelectUnit} />;
+        return <OrderDetail order={selectedOrder} onBack={handleBackToDashboard} onSelectUnit={handleSelectUnit}/>;
     }
 
     if (view === 'unit' && selectedUnit) {
-        return <UnitDetail unit={selectedUnit} onBack={handleBackToOrder} />;
+        return <UnitDetail unit={selectedUnit} onBack={handleBackToOrder}/>;
     }
 
-    return <OrdersDashboard onSelectOrder={handleSelectOrder} />;
+    return <OrdersDashboard onSelectOrder={handleSelectOrder}/>;
+}
